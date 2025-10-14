@@ -2,13 +2,22 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    id("com.google.gms.google-services")
+
 }
 
 android {
     namespace = "com.example.budgetflow"
     compileSdk {
         version = release(36)
+
+        kotlinOptions {
+            freeCompilerArgs += listOf(
+                "-opt-in=androidx.compose.material3.ExperimentalMaterial3Api"
+            )
+        }
     }
+
 
     defaultConfig {
         applicationId = "com.example.budgetflow"
@@ -65,4 +74,25 @@ dependencies {
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3")
+
+    // ViewModel para Compose
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0")
+
+    // Corrutinas
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
+
+    implementation(platform("com.google.firebase:firebase-bom:32.7.2"))
+    implementation("com.google.firebase:firebase-auth-ktx")
+    implementation("com.google.firebase:firebase-firestore-ktx")
+    implementation("com.google.firebase:firebase-storage-ktx")
+
+    implementation("androidx.navigation:navigation-compose:2.8.0")
+
+    implementation("androidx.compose.material3:material3:1.3.0")
+    implementation("androidx.compose.ui:ui:1.6.0")
+    implementation("androidx.compose.ui:ui-tooling-preview:1.6.0")
+    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.7.0")
+
+
+
 }

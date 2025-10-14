@@ -1,4 +1,4 @@
-package com.example.budgetflow.ui.login
+package com.example.budgetflow.ui.register
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
@@ -11,21 +11,23 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.budgetflow.ui.auth.AuthViewModel
 
 @Composable
-fun LoginScreen(
-    onLoginSuccess: () -> Unit,
-    onNavigateToRegister: () -> Unit
+fun RegisterScreen(
+    onRegisterSuccess: () -> Unit,
+    onNavigateToLogin: () -> Unit
 ) {
     val authViewModel: AuthViewModel = viewModel()
     val authState by authViewModel.authState.collectAsState()
 
+    var nombre by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+    var confirmPassword by remember { mutableStateOf("") }
     var errorMessage by remember { mutableStateOf<String?>(null) }
 
     LaunchedEffect(authState) {
         when (authState) {
             is com.example.budgetflow.ui.auth.AuthState.Success -> {
-                onLoginSuccess()
+                onRegisterSuccess()
             }
             is com.example.budgetflow.ui.auth.AuthState.Error -> {
                 errorMessage = (authState as com.example.budgetflow.ui.auth.AuthState.Error).message
@@ -42,36 +44,46 @@ fun LoginScreen(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "BudgetFlow",
-            style = MaterialTheme.typography.headlineLarge,
-            color = MaterialTheme.colorScheme.primary
+            text = "Crear Cuenta",
+            style = MaterialTheme.typography.headlineLarge
         )
 
         Spacer(modifier = Modifier.height(32.dp))
 
         OutlinedTextField(
+            value = nombre,
+            onValueChange = { nombre = it },
+            label = { Text("Nombre completo") },
+            modifier = Modifier.fillMaxWidth()
+        )
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        OutlinedTextField(
             value = email,
-            onValueChange = {
-                email = it
-                errorMessage = null
-            },
+            onValueChange = { email = it },
             label = { Text("Email") },
-            modifier = Modifier.fillMaxWidth(),
-            isError = errorMessage != null
+            modifier = Modifier.fillMaxWidth()
         )
 
         Spacer(modifier = Modifier.height(16.dp))
 
         OutlinedTextField(
             value = password,
-            onValueChange = {
-                password = it
-                errorMessage = null
-            },
+            onValueChange = { password = it },
             label = { Text("Contraseña") },
             visualTransformation = PasswordVisualTransformation(),
-            modifier = Modifier.fillMaxWidth(),
-            isError = errorMessage != null
+            modifier = Modifier.fillMaxWidth()
+        )
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        OutlinedTextField(
+            value = confirmPassword,
+            onValueChange = { confirmPassword = it },
+            label = { Text("Confirmar contraseña") },
+            visualTransformation = PasswordVisualTransformation(),
+            modifier = Modifier.fillMaxWidth()
         )
 
         if (errorMessage != null) {
@@ -86,8 +98,10 @@ fun LoginScreen(
 
         Button(
             onClick = {
-                if (email.isNotEmpty() && password.isNotEmpty()) {
-                    authViewModel.login(email, password)
+                if (password != confirmPassword) {
+                    errorMessage = "Las contraseñas no coinciden"
+                } else if (nombre.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty()) {
+                    authViewModel.register(email, password, nombre)
                 } else {
                     errorMessage = "Por favor completa todos los campos"
                 }
@@ -101,22 +115,14 @@ fun LoginScreen(
                     color = MaterialTheme.colorScheme.onPrimary
                 )
             } else {
-                Text("Iniciar Sesión")
+                Text("Crear Cuenta")
             }
         }
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        TextButton(onClick = onNavigateToRegister) {
-            Text("¿No tienes cuenta? Regístrate")
+        TextButton(onClick = onNavigateToLogin) {
+            Text("¿Ya tienes cuenta? Inicia Sesión")
         }
-
-        Spacer(modifier = Modifier.height(32.dp))
-
-        Text(
-            text = "Para probar: crea una cuenta primero",
-            style = MaterialTheme.typography.bodySmall,
-            color = MaterialTheme.colorScheme.outline
-        )
     }
 }

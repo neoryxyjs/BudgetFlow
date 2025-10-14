@@ -6,6 +6,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.compose.material3.ExperimentalMaterial3Api  // ← Agregar este import
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -14,10 +15,16 @@ fun DashboardScreen(
 ) {
     Scaffold(
         topBar = {
-            CenterAlignedTopAppBar(
+            TopAppBar(
                 title = { Text("Mis Gastos") },
                 actions = {
-                    IconButton(onClick = onLogout) {
+                    Button(
+                        onClick = onLogout,
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = MaterialTheme.colorScheme.errorContainer,
+                            contentColor = MaterialTheme.colorScheme.onErrorContainer
+                        )
+                    ) {
                         Text("Salir")
                     }
                 }
@@ -31,7 +38,6 @@ fun DashboardScreen(
                 .padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            // Tarjeta de resumen
             Card(
                 modifier = Modifier.fillMaxWidth()
             ) {
@@ -50,7 +56,9 @@ fun DashboardScreen(
 
             // Botón para agregar gasto
             Button(
-                onClick = { /* Navegar a agregar gasto */ },
+                onClick = {
+                    println("🔹 Botón Agregar Gasto presionado")
+                },
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Text("Agregar Gasto")

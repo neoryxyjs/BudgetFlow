@@ -7,7 +7,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
-import com.example.budgetflow.ui.login.LoginScreen
+import com.example.budgetflow.ui.BudgetFlowApp
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -17,12 +17,7 @@ class MainActivity : ComponentActivity() {
                 modifier = Modifier.fillMaxSize(),
                 color = MaterialTheme.colorScheme.background
             ) {
-                LoginScreen(
-                    onLoginSuccess = {
-                        // Por ahora solo imprimimos un mensaje
-                        println("Login exitoso!")
-                    }
-                )
+                BudgetFlowApp()
             }
         }
     }
