@@ -2,6 +2,8 @@ package com.example.budgetflow.ui.auth
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.budgetflow.model.User
+import com.example.budgetflow.repository.UserRepository
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -12,6 +14,7 @@ import kotlinx.coroutines.tasks.await
 
 class AuthViewModel : ViewModel() {
     private val auth: FirebaseAuth = Firebase.auth
+    private val userRepository = UserRepository()
 
     private val _authState = MutableStateFlow<AuthState>(AuthState.Idle)
     val authState: StateFlow<AuthState> = _authState
@@ -32,9 +35,26 @@ class AuthViewModel : ViewModel() {
         viewModelScope.launch {
             _authState.value = AuthState.Loading
             try {
+                // Crear usuario en Firebase Auth
                 val result = auth.createUserWithEmailAndPassword(email, password).await()
-                // Aquí luego guardaremos el nombre en Firestore
-                _authState.value = AuthState.Success
+                
+                // Guardar información adicional en Firestore
+                val user = User(
+                    id = result.user?.uid ?: "",
+                    name = nombre,
+                    email = email,
+                    monthlyBudget = 0.0,
+                    profileImageUrl = ""
+                )
+                
+                val saveResult = userRepository.saveUser(user)
+                if (saveResult.isSuccess) {
+                    _authState.value = AuthState.Success
+                } else {
+                    // Si falla guardar en Firestore, eliminar usuario de Auth
+                    auth.currentUser?.delete()
+                    _authState.value = AuthState.Error("Error al crear el perfil de usuario")
+                }
             } catch (e: Exception) {
                 _authState.value = AuthState.Error(e.message ?: "Error desconocido")
             }
@@ -47,7 +67,11 @@ class AuthViewModel : ViewModel() {
 
     fun logout() {
         auth.signOut()
-        println("✅ Sesión cerrada en Firebase")
+        _authState.value = AuthState.Idle
+    }
+    
+    fun resetState() {
+        _authState.value = AuthState.Idle
     }
 }
 
