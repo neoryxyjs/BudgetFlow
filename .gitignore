@@ -1,0 +1,65 @@
+# IDEs
+.idea/
+*.iml
+.vscode/
+*.swp
+*.swo
+*~
+
+# Android
+.gradle/
+/build/
+/captures/
+.externalNativeBuild
+.cxx/
+local.properties
+*.apk
+*.ap_
+*.aab
+
+# Android Studio
+*.iml
+.idea/
+.idea/caches/
+.idea/libraries/
+.idea/modules.xml
+.idea/workspace.xml
+.idea/navEditor.xml
+.idea/assetWizardSettings.xml
+
+# Backend - Maven
+backend/target/
+backend/.mvn/
+backend/mvnw
+backend/mvnw.cmd
+backend/out/
+backend/*.iml
+
+# Base de datos
+backend/data/*.db
+backend/data/*.trace.db
+*.db
+*.trace.db
+
+# Logs
+*.log
+logs/
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Archivos temporales
+*.tmp
+*.bak
+*.swp
+
+# Node modules (si se usa)
+node_modules/
+
+# Archivos de configuración local
+local.properties
+.env
+.env.local
+

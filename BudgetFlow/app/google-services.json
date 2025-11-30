@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "344209978587",
+    "project_id": "budgetflow-ef072",
+    "storage_bucket": "budgetflow-ef072.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:344209978587:android:dd36bae01d18314cef88fe",
+        "android_client_info": {
+          "package_name": "com.example.budgetflow"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD5bRKcNYrnRT_eNEqXCCFHH8UAHqL_OaA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
