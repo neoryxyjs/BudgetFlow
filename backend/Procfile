@@ -1,2 +1,0 @@
-web: java -jar target/budgetflow-backend-1.0.0.jar
-
