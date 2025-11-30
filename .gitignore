@@ -63,3 +63,10 @@ local.properties
 .env
 .env.local
 
+# Documentación (excepto README)
+*.md
+!README.md
+
+# Scripts PowerShell
+*.ps1
+
