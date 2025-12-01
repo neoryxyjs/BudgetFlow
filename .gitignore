@@ -70,3 +70,8 @@ local.properties
 # Scripts PowerShell
 *.ps1
 
+# Keystore y configuración de firma
+keystore.properties
+*.jks
+*.keystore
+

@@ -20,20 +20,15 @@ object ModelMapper {
     
     // Expense Mappers
     fun Expense.toDto(): ExpenseDto {
+        // Formato simple sin zona horaria para mejor compatibilidad con Spring Boot
+        // Spring Boot espera: yyyy-MM-dd'T'HH:mm:ss o yyyy-MM-dd'T'HH:mm:ss.SSS
         val dateStr = try {
             val instant = Instant.ofEpochSecond(date.seconds, date.nanoseconds.toLong())
-            instant.atZone(ZoneId.systemDefault())
-                .format(dateFormatter)
+            val localDateTime = instant.atZone(ZoneId.systemDefault()).toLocalDateTime()
+            // Formato: yyyy-MM-dd'T'HH:mm:ss (sin zona horaria, Spring Boot lo maneja mejor)
+            localDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss"))
         } catch (e: Exception) {
-            Instant.now().atZone(ZoneId.systemDefault()).format(dateFormatter)
-        }
-        
-        val createdAtStr = try {
-            val instant = Instant.ofEpochSecond(createdAt.seconds, createdAt.nanoseconds.toLong())
-            instant.atZone(ZoneId.systemDefault())
-                .format(dateFormatter)
-        } catch (e: Exception) {
-            Instant.now().atZone(ZoneId.systemDefault()).format(dateFormatter)
+            LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss"))
         }
         
         return ExpenseDto(
