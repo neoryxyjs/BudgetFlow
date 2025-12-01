@@ -345,3 +345,14 @@ Aplicaciones_Moviles/
 
 
 
+- <img width="1020" height="297" alt="image" src="https://github.com/user-attachments/assets/76eb796c-fc01-4319-98fc-26e4e16f286e" />
+- <img width="833" height="483" alt="image" src="https://github.com/user-attachments/assets/593361a7-591b-4060-9f00-776f2969b664" />
+
+
+
+
+
+
+
+
+
