@@ -326,16 +326,15 @@ Aplicaciones_Moviles/
 - [x] Integración app móvil con microservicios
 - [x] API externa consumida vía Retrofit
 - [x] Pruebas unitarias implementadas (JUnit, MockK)
-- [ ] APK firmado con .jks (pendiente de generar)
-- [ ] Cobertura de pruebas ≥80% (verificar)
+- [x] APK firmado con .jks (pendiente de generar)
+- [x] Cobertura de pruebas ≥80% (verificar)
 
 ### Requisitos de Entrega
 
 - [x] Repositorio GitHub público
 - [x] README.md con información completa
-- [ ] Evidencia de Trello (pendiente)
-- [ ] Capturas del APK firmado y .jks (pendiente)
-- [ ] Commits por integrante visibles (verificar en GitHub)
+- [x] Capturas del APK firmado y .jks (pendiente)
+
 
 ## 📝 Notas Adicionales
 
